@@ -270,6 +270,23 @@
         </div>
     </div>
 
+    <!-- Preview Modal -->
+    <div id="previewModal" class="modal-overlay hidden">
+        <div class="modal" style="max-width:900px;padding:14px;display:flex;flex-direction:column;gap:10px;height:90vh;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                <h3 id="previewTitle" style="font-size:15px;color:#fff;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></h3>
+                <div style="display:flex;gap:6px;flex-shrink:0;">
+                    <a id="previewOpenLink" href="#" target="_blank" rel="noopener" class="btn btn-secondary" style="padding:6px 10px;font-size:12px;">فتح في صفحة</a>
+                    <button onclick="closePreview()" class="btn btn-gold" style="padding:6px 12px;font-size:12px;">إغلاق ✕</button>
+                </div>
+            </div>
+            <iframe id="previewFrame" title="معاينة" allow="autoplay; fullscreen" allowfullscreen referrerpolicy="no-referrer"
+                sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-presentation"
+                style="flex:1;width:100%;border:0;border-radius:12px;background:#fff;"></iframe>
+            <p style="font-size:11px;color:var(--text-muted);text-align:center;">لو المعاينة مظهرتش، اضغط "فتح في صفحة".</p>
+        </div>
+    </div>
+
     <!-- Result Modal -->
     <div id="resultModal" class="modal-overlay hidden">
         <div class="modal" style="text-align:center;">
@@ -558,6 +575,7 @@
                             ${currentCategory === 'exams' ? `
                                 <button onclick="openSolveModal(${jsq(item.title)})" class="btn btn-emerald" style="flex:1;">حل الاختبار ✍️</button>
                             ` : ''}
+                            ${getEmbedUrl(item.url) ? `<button onclick="openPreview(${jsq(item.title)}, ${jsq(item.url)})" class="btn btn-gold" style="flex:1;">معاينة 👁️</button>` : ''}
                             <a href="${esc(item.url)}" target="_blank" rel="noopener" class="btn btn-indigo" style="flex:1;">فتح / تحميل 📥</a>
                         </div>
 
@@ -950,6 +968,60 @@
                 list.innerHTML = listHtml || '<span style="font-size:11px;color:var(--text-muted);">لم يتم إنشاء كورسات بعد.</span>';
             } catch(e) {}
         }
+
+        window.getEmbedUrl = function(rawUrl) {
+            let u;
+            try { u = new URL(String(rawUrl).trim()); } catch (e) { return null; }
+            if (u.protocol !== 'https:') return null;
+            const host = u.hostname.replace(/^www\./, '');
+            const path = u.pathname;
+
+            // Google Drive (ملفات PDF وصور وغيرها)
+            if (host === 'drive.google.com') {
+                let m = path.match(/\/file\/d\/([\w-]+)/);
+                const id = m ? m[1] : u.searchParams.get('id');
+                if (id && /^[\w-]+$/.test(id)) return 'https://drive.google.com/file/d/' + id + '/preview';
+                return null;
+            }
+            if (host === 'docs.google.com') {
+                // Google Forms (اختبارات)
+                let m = path.match(/^\/forms\/d\/(e\/)?([\w-]+)/);
+                if (m) return 'https://docs.google.com/forms/d/' + (m[1] || '') + m[2] + '/viewform?embedded=true';
+                // Docs / Slides / Sheets
+                m = path.match(/^\/(document|presentation|spreadsheets)\/d\/([\w-]+)/);
+                if (m) return 'https://docs.google.com/' + m[1] + '/d/' + m[2] + '/preview';
+                return null;
+            }
+            if (host === 'forms.gle') return null; // رابط مختصر: لا يمكن تضمينه
+            // YouTube
+            if (host === 'youtu.be') {
+                const id = path.slice(1);
+                return /^[\w-]{6,}$/.test(id) ? 'https://www.youtube.com/embed/' + id : null;
+            }
+            if (host === 'youtube.com' || host === 'm.youtube.com') {
+                let id = u.searchParams.get('v');
+                const m = path.match(/^\/(shorts|embed|live)\/([\w-]+)/);
+                if (!id && m) id = m[2];
+                return id && /^[\w-]{6,}$/.test(id) ? 'https://www.youtube.com/embed/' + id : null;
+            }
+            // ملف PDF مباشر على أي موقع
+            if (/\.pdf$/i.test(path)) return 'https://docs.google.com/gview?embedded=1&url=' + encodeURIComponent(u.href);
+            return null;
+        };
+
+        window.openPreview = function(title, url) {
+            const embed = getEmbedUrl(url);
+            if (!embed) { window.open(url, '_blank', 'noopener'); return; }
+            document.getElementById('previewTitle').textContent = title;
+            document.getElementById('previewOpenLink').href = url;
+            document.getElementById('previewFrame').src = embed;
+            document.getElementById('previewModal').classList.remove('hidden');
+        };
+
+        window.closePreview = function() {
+            document.getElementById('previewFrame').src = 'about:blank';
+            document.getElementById('previewModal').classList.add('hidden');
+        };
 
         window.closeModal = function(id) {
             document.getElementById(id).classList.add('hidden');
