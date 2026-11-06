@@ -1,5 +1,5 @@
 // Service Worker: يخزّن واجهة المنصة فقط. بيانات Firebase دايمًا بتيجي مباشرة من النت.
-const CACHE = 'portal-shell-v1';
+const CACHE = 'portal-shell-v2';
 const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (e) => {
@@ -20,7 +20,10 @@ self.addEventListener('fetch', (e) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return; // Firebase والمكتبات الخارجية: بدون تدخل
 
-  // الصفحة: النت أولاً (عشان التحديثات توصل فورًا)، والكاش لو مفيش نت
+  // الصفحة الرئيسية فقط: النت أولاً (عشان التحديثات توصل فورًا)، والكاش لو مفيش نت
+  // أي صفحة تانية (زي ملفات الاختبارات HTML) تمشي عادي من النت بدون تدخل
+  const isShell = url.pathname.endsWith('/') || url.pathname.endsWith('/index.html');
+  if (req.mode === 'navigate' && !isShell) return;
   if (req.mode === 'navigate') {
     e.respondWith(
       fetch(req)

@@ -1,0 +1,802 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>منصة Mr Mostafa Ahmed · الوحدة الرابعة (الصفحات ١ إلى ١٠)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: ['selector', '[data-theme="dark"]'],
+    theme: {
+      extend: {
+        fontFamily: {
+          cairo: ['Cairo', 'sans-serif'],
+          baloo: ['Baloo 2', 'sans-serif']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  :root {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --ink: #0f172a;
+    --mut: #64748b;
+    --line: #e2e8f0;
+    --sh: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+    box-sizing: border-box;
+  }
+
+
+  [data-theme="dark"] {
+    --bg: #090d16;
+    --card: #131c31;
+    --ink: #f8fafc;
+    --mut: #94a3b8;
+    --line: #1e293b;
+    --sh: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  }
+
+
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Cairo", sans-serif;
+    font-size: calc(17px * var(--z, 1));
+    line-height: 1.7;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+
+  .en {
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-family: "Baloo 2", sans-serif;
+  }
+
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
+
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.96) translateY(12px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .animate-pop { animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+</style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+
+<!-- Top Navigation & Status Bar -->
+<header class="sticky top-0 z-40 bg-[var(--card)]/90 backdrop-blur-md border-b border-[var(--line)] px-4 sm:px-8 py-4 transition-colors">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-violet-600 to-purple-600 text-white flex items-center justify-center text-xl font-black shadow-lg shadow-violet-500/20">🎨</div>
+      <div>
+        <h1 class="font-black text-base sm:text-lg leading-tight tracking-tight">منصة Mr Mostafa Ahmed</h1>
+        <p class="text-xs text-[var(--mut)] font-bold">الوحدة الرابعة: Art & Expression (الصفحات ١ إلى ١٠) | 📞 01032141669</p>
+      </div>
+    </div>
+
+
+    <!-- Center Progress -->
+    <div class="hidden md:flex items-center gap-4 bg-[var(--bg)] px-4 py-2 rounded-2xl border border-[var(--line)]">
+      <div class="text-xs font-bold text-[var(--mut)]">معدل الإنجاز:</div>
+      <div class="w-32 bg-[var(--line)] h-2 rounded-full overflow-hidden">
+        <div id="top-prog-bar" class="bg-gradient-to-r from-violet-500 to-purple-600 h-full w-0 transition-all duration-500"></div>
+      </div>
+      <span id="top-prog-txt" class="text-xs font-black text-violet-600 dark:text-violet-400">0%</span>
+    </div>
+
+
+    <!-- Tools -->
+    <div class="flex items-center gap-1.5 bg-[var(--bg)] p-1.5 rounded-2xl border border-[var(--line)] shadow-sm">
+      <button onclick="zoom(-0.1)" class="w-9 h-9 rounded-xl hover:bg-[var(--card)] font-bold text-xs transition flex items-center justify-center cursor-pointer" title="تصغير">A−</button>
+      <button onclick="zoom(0.1)" class="w-9 h-9 rounded-xl hover:bg-[var(--card)] font-bold text-xs transition flex items-center justify-center cursor-pointer" title="تكبير">A+</button>
+      <button onclick="theme()" class="w-9 h-9 rounded-xl hover:bg-[var(--card)] font-bold text-sm transition flex items-center justify-center cursor-pointer" title="المظهر">◐</button>
+    </div>
+  </div>
+</header>
+
+
+<!-- Main Dashboard Layout -->
+<div class="max-w-7xl mx-auto w-full px-4 sm:px-8 py-8 flex flex-col lg:flex-row gap-8 flex-grow">
+
+
+  <!-- Sidebar Navigation Tabs -->
+  <aside class="w-full lg:w-80 shrink-0">
+    <div class="bg-[var(--card)] rounded-3xl p-4 shadow-[var(--sh)] border border-[var(--line)] sticky top-24">
+      <div class="px-3 py-2 mb-2 text-xs font-black text-[var(--mut)] uppercase tracking-wider">صفحات الوحدة (١ - ١٠)</div>
+      <nav id="nav" class="space-y-1.5 max-h-[calc(100vh-250px)] overflow-y-auto pr-1">
+        <!-- Injected via JS -->
+      </nav>
+      
+      <!-- Quick Help Banner -->
+      <div class="mt-4 p-3 rounded-2xl bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20 text-center">
+        <div class="text-xl mb-1">💡</div>
+        <h4 class="text-xs font-black text-violet-600 dark:text-violet-400 mb-1">محتوى كامل بدون حذف</h4>
+        <p class="text-[11px] text-[var(--mut)] font-medium leading-relaxed">جميع نصوص القراءة، المفردات، البوادئ، اللاحقات، الأفعال الشاذة، والتمارين متضمنة بدقة.</p>
+      </div>
+    </div>
+  </aside>
+
+
+  <!-- Content Workspace -->
+  <main class="flex-1 min-w-0">
+    <!-- Header of current section -->
+    <div class="bg-gradient-to-r from-violet-600 to-purple-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl shadow-violet-500/10 mb-8 relative overflow-hidden">
+      <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="relative z-10">
+        <span id="sec-tag" class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold mb-2">Page</span>
+        <h2 id="sec-title" class="text-2xl sm:text-3xl font-black tracking-tight">عنوان الصفحة</h2>
+        <p id="sec-desc" class="text-white/80 text-sm mt-1 font-medium">محتوى الصفحة وتفاصيلها الكاملة.</p>
+      </div>
+    </div>
+
+
+    <!-- Dynamic View Area -->
+    <div id="v" class="space-y-6">
+      <!-- Injected via JS -->
+    </div>
+  </main>
+
+
+</div>
+
+
+<!-- Footer -->
+<footer class="mt-auto border-t border-[var(--line)] py-6 text-center text-xs text-[var(--mut)] bg-[var(--card)]">
+  <p>منصة Mr Mostafa Ahmed التعليمية © 2026 · English Teacher · 📞 01032141669 · الوحدة الرابعة (الصفحات ١ - ١٠)</p>
+</footer>
+
+
+<script>
+var T = [
+  ["p1", "الصفحة ١: Learning Outcomes", "🎯", "#7c3aed", "Page 1: Unit 4 Learning Outcomes", "أهداف التعلم الخاصة بالقراءة، الاستماع، المحادثة، والكتابة."],
+  ["p2", "الصفحة ٢: Reading & Key Words", "📖", "#0284c7", "Page 2: A World of Imagination", "نصوص القراءة الرئيسية والكلمات الأساسية للوحدة."],
+  ["p3", "الصفحة ٣: Check Yourself & Expressions", "✍️", "#059669", "Page 3: Check Yourself & Expressions", "التعبيرات اللغوية، الكلمات المركبة (Collocations)، وحروف الجر."],
+  ["p4", "الصفحة ٤: More Vocabulary & Synonyms", "📚", "#d97706", "Page 4: More Vocabulary, Synonyms & Antonyms", "المفردات الإضافية، المترادفات، والمتضادات."],
+  ["p5", "الصفحة ٥: Prefixes, Suffixes & Verbs", "🔤", "#2563eb", "Page 5: Prefixes, Suffixes & Irregular Verbs", "البوادئ واللاحقات وتصريفات الأفعال غير المنتظمة."],
+  ["p6", "الصفحة ٦: Definitions & Vocabulary Notes", "📝", "#db2777", "Page 6: Definitions & Vocabulary Notes", "التعريفات والملاحظات اللغوية الهامة."],
+  ["p7", "الصفحة ٧: Vocabulary Exercises (1)", "⚡", "#4f46e5", "Page 7: Vocabulary Exercises", "التمارين والأسئلة الاختيارية للمفردات."],
+  ["p8", "الصفحة ٨: Vocabulary Exercises (2)", "🔍", "#0d9488", "Page 8: Vocabulary Exercises (Cont.)", "استكمال أسئلة الاختياري وقواعد الأفعال."],
+  ["p9", "الصفحة ٩: Language: Connectors", "🔗", "#ea580c", "Page 9: Language - Connectors of Cause & Result", "قواعد أدوات الربط (because, so, but, although)."],
+  ["p10", "الصفحة ١٠: Language Exercises", "✍️", "#7c3aed", "Page 10: Rewrite Exercises", "تمارين إعادة كتابة الجمل باستخدام أدوات الربط."]
+];
+
+
+var cur = "p1", z = 1, visited = {};
+var nav = document.getElementById("nav"), v = document.getElementById("v");
+
+
+// Build Sidebar Navigation
+T.forEach(function(t) {
+  var b = document.createElement("button");
+  b.id = "t-" + t[0];
+  b.className = "w-full flex items-center justify-between p-3 rounded-2xl font-bold text-xs transition-all duration-200 cursor-pointer group text-[var(--ink)] hover:bg-[var(--bg)] border border-transparent";
+  b.innerHTML = `<div class="flex items-center gap-2.5"><span class="w-8 h-8 rounded-xl flex items-center justify-center text-sm shadow-sm group-hover:scale-110 transition" style="background:${t[3]}15; color:${t[3]}">${t[2]}</span><span class="text-right">${t[1]}</span></div><span id="badge-${t[0]}" class="text-[10px] px-2 py-0.5 rounded-full bg-[var(--bg)] text-[var(--mut)] border border-[var(--line)]">قيد الدراسة</span>`;
+  b.onclick = function() { go(t[0]); };
+  nav.appendChild(b);
+});
+
+
+function updateProgress() {
+  visited[cur] = true;
+  var count = Object.keys(visited).length;
+  var pct = Math.round((count / T.length) * 100);
+  document.getElementById("top-prog-bar").style.width = pct + "%";
+  document.getElementById("top-prog-txt").textContent = pct + "%";
+  
+  T.forEach(function(t) {
+    var badge = document.getElementById("badge-" + t[0]);
+    if (visited[t[0]]) {
+      badge.textContent = "مكتمل ✓";
+      badge.className = "text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 font-bold border border-emerald-500/20";
+    }
+  });
+}
+
+
+function go(k) {
+  cur = k;
+  updateProgress();
+  var activeObj = T.find(function(x) { return x[0] === k; });
+  
+  T.forEach(function(t) {
+    var b = document.getElementById("t-" + t[0]);
+    if (t[0] == k) {
+      b.className = "w-full flex items-center justify-between p-3 rounded-2xl font-black text-xs transition-all duration-200 cursor-pointer shadow-lg text-white scale-[1.02]";
+      b.style.backgroundColor = t[3];
+    } else {
+      b.className = "w-full flex items-center justify-between p-3 rounded-2xl font-bold text-xs transition-all duration-200 cursor-pointer text-[var(--ink)] hover:bg-[var(--bg)] border border-transparent";
+      b.style.backgroundColor = "";
+    }
+  });
+
+
+  document.getElementById("sec-tag").textContent = activeObj[1];
+  document.getElementById("sec-title").textContent = activeObj[4];
+  document.getElementById("sec-desc").textContent = activeObj[5];
+  
+  v.className = "space-y-6 animate-pop";
+  v.innerHTML = "";
+  window["r_" + k]();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+function zoom(d) {
+  z = Math.max(0.75, Math.min(1.4, z + d));
+  document.body.style.setProperty("--z", z);
+}
+
+
+function theme() {
+  var r = document.documentElement;
+  var current = r.getAttribute("data-theme");
+  var next = current === "dark" ? "light" : "dark";
+  if (current === null) {
+    next = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark";
+  }
+  r.setAttribute("data-theme", next);
+}
+
+
+function say(t) {
+  try {
+    var u = new SpeechSynthesisUtterance(t.replace(/[!–]/g, " "));
+    u.lang = "en-US";
+    u.rate = 0.85;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+
+
+function bilingualCard(enText, arText) {
+  return `<div onclick="say('${enText}')" class="p-4 rounded-2xl bg-[var(--card)] border border-[var(--line)] shadow-sm hover:border-violet-500 hover:scale-[1.01] transition cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 group select-none my-2">
+    <div>
+      <span class="en text-base font-black text-violet-600 dark:text-violet-400 block">${enText}</span>
+      <span class="text-xs text-[var(--mut)] font-bold">${arText}</span>
+    </div>
+    <span class="text-xs px-3 py-1 rounded-xl bg-[var(--bg)] text-[var(--mut)] group-hover:bg-violet-500 group-hover:text-white transition font-bold shrink-0">🔊 استماع</span>
+  </div>`;
+}
+
+
+function r_p1() {
+  v.innerHTML = `
+    <div class="bg-[var(--card)] rounded-3xl shadow-[var(--sh)] p-6 sm:p-8 border border-[var(--line)] space-y-6">
+      <h3 class="text-xl font-black text-violet-600">UNIT 4: Art & Expression - Learning Outcomes</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-5 rounded-2xl bg-[var(--bg)] border border-[var(--line)] space-y-2">
+          <h4 class="font-black text-sm text-sky-600">01 READING</h4>
+          <p class="text-sm font-medium text-[var(--mut)]">Identify different types of artwork mentioned in a text.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-[var(--bg)] border border-[var(--line)] space-y-2">
+          <h4 class="font-black text-sm text-sky-600">02 LISTENING</h4>
+          <p class="text-sm font-medium text-[var(--mut)]">Summarize main ideas from an interview with an artist. Extract specific details from a listening passage.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-[var(--bg)] border border-[var(--line)] space-y-2">
+          <h4 class="font-black text-sm text-sky-600">03 SPEAKING</h4>
+          <p class="text-sm font-medium text-[var(--mut)]">Describe favorite types of artwork. Explain a favorite artwork using adjectives. Express ideas clearly.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-[var(--bg)] border border-[var(--line)] space-y-2">
+          <h4 class="font-black text-sm text-sky-600">04 WRITING & LANGUAGE</h4>
+          <p class="text-sm font-medium text-[var(--mut)]">Write an email about art. Use context clues, descriptive adjectives, and connectors (because, so, although, but).</p>
+        </div>
+      </div>
+    </div>`;
+}
+
+
+function r_p2() {
+  var sentences = [
+    ["Art is all around us in many different forms.", "الفن موجود حولنا في صور وأشكال كثيرة ومختلفة."],
+    ["An artwork is something an artist creates to express ideas and emotions.", "العمل الفني هو ما يبدعه الفنان للتعبير عن الأفكار والمشاعر."],
+    ["Artworks can be colorful paintings or sculptures made from materials such as stone and metal.", "قد تكون الأعمال الفنية لوحات ملونة أو منحوتات مصنوعة من مواد مثل الحجر والمعدن."],
+    ["Every piece of art shows the artist's special and personal touch.", "كل قطعة فنية تظهر اللمسة الخاصة والشخصية للفنان."],
+    ["Artists depend on imagination and creativity to produce beautiful works of art.", "يعتمد الفنانون على الخيال والإبداع لإنتاج أعمال فنية جميلة."],
+    ["Creativity is not only useful in art; it is also a valuable life skill.", "الإبداع ليس مهما للفن فقط، بل هو أيضا مهارة حياتية قيمة."],
+    ["Creativity helps people solve problems and think in new and original ways.", "يساعد الإبداع الناس على حل المشكلات والتفكير بطرق جديدة وأصلية."],
+    ["It also supports self-expression and can bring joy and personal growth.", "كما يدعم التعبير عن الذات ويمكن أن يكون مصدرًا للسعادة والنمو الشخصي."],
+    ["Galleries may contain paintings, sculptures, and lively artistic performances.", "قد تضم المعارض لوحات ومنحوتات وعروضًا فنية حيوية."],
+    ["Every artwork may carry a hidden story, a feeling, or a message waiting to be discovered.", "قد يحمل كل عمل فني قصة خفية أو شعورًا أو رسالة تنتظر من يكتشفها."]
+  ];
+
+
+  var keyWords = [
+    ["artwork", "عمل فني"], ["artist", "فنان"], ["express", "يعبر"], ["emotions", "مشاعر"],
+    ["sculpture", "منحوتة"], ["materials", "مواد"], ["imagination", "خيال"], ["creativity", "إبداع"],
+    ["valuable", "قيم"], ["gallery", "معرض فني"]
+  ];
+
+
+  v.innerHTML = `
+    <div class="space-y-6">
+      <div class="bg-[var(--card)] rounded-3xl shadow-[var(--sh)] p-6 sm:p-8 border border-[var(--line)] space-y-4">
+        <h3 class="text-xl font-black text-sky-600">Lessons 1-2: A World of Imagination</h3>
+        <p class="text-sm font-bold text-[var(--mut)]">انقر فوق أي جملة للاستماع إلى نطقها:</p>
+        <div class="space-y-2">${sentences.map(function(i) { return bilingualCard(i[0], i[1]); }).join("")}</div>
+      </div>
+
+
+      <div class="bg-[var(--card)] rounded-3xl shadow-[var(--sh)] p-6 sm:p-8 border border-[var(--line)] space-y-4">
+        <h3 class="text-xl font-black text-sky-600">Key Words (الكلمات المفتاحية)</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+          ${keyWordCards = keyWords.map(function(k) {
+            return `<div onclick="say('${k[0]}')" class="p-3 rounded-2xl bg-[var(--bg)] border border-[var(--line)] text-center cursor-pointer hover:border-sky-500">
+              <span class="en font-black text-sky-600 block">🔊 ${k[0]}</span>
+              <span class="text-xs text-[var(--mut)] font-bold">${k[1]}</span>
+            </div>`;
+          }).join("")}
+        </div>
+      </div>
+    </div>`;
+}
+
+
+function r_p3() {
+  v.innerHTML = `
+    <div class="space-y-6">
+      <div class="bg-[var(--card)] rounded-3xl shadow-[var(--sh)] p-6 sm:p-8 border border-[var(--line)] space-y-4">
+        <h3 class="text-xl font-black text-emerald-600">Check Yourself & Expressions (التعبيرات اللغوية)</h3>
+        
+        <div class="overflow-x-auto">
+          <table class="w-full text-right border-collapse">
+            <thead>
+              <tr class="border-b border-[var(--line)] text-xs text-[var(--mut)]">
+                <th class="p-3">Type</th>
+                <th class="p-3">Expression</th>
+                <th class="p-3">المعنى</th>
+                <th class="p-3">Example</th>
+              </tr>
+            </thead>
+            <tbody class="text-sm">
+              <tr class="border-b border-[var(--line)]">
+                <td class="p-3 font-bold text-emerald-600">Collocation</td>
+                <td class="p-3 en font-bold">create works of art</td>
+                <td class="p-3">يُبدع أعمالاً فنية</td>
+                <td class="p-3 en text-xs">Artists create works of art.</td>
+              </tr>
+              <tr class="border-b border-[var(--line)]">
+                <td class="p-3 font-bold text-emerald-600">Collocation</td>
+                <td class="p-3 en font-bold">express ideas and emotions</td>
+                <td class="p-3">يعبر عن الأفكار والمشاعر</td>
+                <td class="p-3 en text-xs">Art can express ideas and emotions.</td>
+              </tr>
+              <tr class="border-b border-[var(--line)]">
+                <td class="p-3 font-bold text-emerald-600">Collocation</td>
+                <td class="p-3 en font-bold">solve problems</td>
+                <td class="p-3">يحل المشكلات</td>
+                <td class="p-3 en text-xs">Creativity helps us solve problems.</td>
+              </tr>
+              <tr class="border-b border-[var(--line)]">
+                <td class="p-3 font-bold text-emerald-600">Collocation</td>
+                <td class="p-3 en font-bold">personal growth</td>
+                <td class="p-3">النمو الشخصي</td>
+                <td class="p-3 en text-xs">Learning supports personal growth.</td>
+              </tr>
+              <tr class="border-b border-[var(--line)]">
+                <td class="p-3 font-bold text-indigo-600">Verb + Prep</td>
+                <td class="p-3 en font-bold">engage with</td>
+                <td class="p-3">يتفاعل مع</td>
+                <td class="p-3 en text-xs">Visitors engage with interactive pieces.</td>
+              </tr>
+              <tr class="border-b border-[var(--line)]">
+                <td class="p-3 font-bold text-indigo-600">Verb + Prep</td>
+                <td class="p-3 en font-bold">take part in</td>
+                <td class="p-3">يشارك في</td>
+                <td class="p-3 en text-xs">Students take part in art activities.</td>
+              </tr>
+              <tr class="border-b border-[var(--line)]">
+                <td class="p-3 font-bold text-indigo-600">Verb + Prep</td>
+                <td class="p-3 en font-bold">made from</td>
+                <td class="p-3">مصنوع من</td>
+                <td class="p-3 en text-xs">The sculpture is made from metal.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-indigo-600">Verb + Prep</td>
+                <td class="p-3 en font-bold">filled with</td>
+                <td class="p-3">ممتلئ بـ</td>
+                <td class="p-3 en text-xs">The gallery is filled with paintings.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>`;
+}
+
+
+function r_p4() {
+  v.innerHTML = `
+    <div class="space-y-6">
+      <div class="bg-[var(--card)] rounded-3xl shadow-[var(--sh)] p-6 sm:p-8 border border-[var(--line)] space-y-4">
+        <h3 class="text-xl font-black text-amber-600">More Vocabulary, Synonyms & Antonyms (المفردات والمترادفات)</h3>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)]">
+            <h4 class="font-bold text-sm text-amber-600 mb-2">Word / Meaning</h4>
+            <ul class="text-xs space-y-1 font-medium">
+              <li>artwork (n.) - عمل فني</li>
+              <li>artist (n.) - فنان</li>
+              <li>painting (n.) - لوحة</li>
+              <li>sculpture (n.) - منحوتة</li>
+              <li>material (n.) - مادة</li>
+              <li>imagination (n.) - خيال</li>
+              <li>creativity (n.) - إبداع</li>
+              <li>valuable (adj.) - قيم</li>
+              <li>original (adj.) - أصيل</li>
+              <li>gallery (n.) - معرض فني</li>
+              <li>amazing (adj.) - مذهل</li>
+              <li>colorful (adj.) - ملون</li>
+              <li>clay (n.) - طين</li>
+              <li>interactive (adj.) - تفاعلي</li>
+              <li>message (n.) - رسالة</li>
+              <li>exhibit (n.) - معرض / قطعة معروضة</li>
+              <li>performance (n.) - عرض فني</li>
+              <li>emotion (n.) - شعور</li>
+            </ul>
+          </div>
+
+
+          <div class="sm:col-span-2 p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)] overflow-x-auto">
+            <h4 class="font-bold text-sm text-amber-600 mb-2">Synonyms & Antonyms</h4>
+            <table class="w-full text-right text-xs">
+              <thead>
+                <tr class="border-b border-[var(--line)] text-[var(--mut)]">
+                  <th class="p-2">Word</th>
+                  <th class="p-2">Synonym</th>
+                  <th class="p-2">Antonym</th>
+                </tr>
+              </thead>
+              <tbody class="font-medium">
+                <tr class="border-b border-[var(--line)]">
+                  <td class="p-2 font-bold en">amazing</td>
+                  <td class="p-2">incredible (رائع جدا)</td>
+                  <td class="p-2">ordinary (عادي)</td>
+                </tr>
+                <tr class="border-b border-[var(--line)]">
+                  <td class="p-2 font-bold en">valuable</td>
+                  <td class="p-2">important (مهم)</td>
+                  <td class="p-2">worthless (عديم القيمة)</td>
+                </tr>
+                <tr class="border-b border-[var(--line)]">
+                  <td class="p-2 font-bold en">original</td>
+                  <td class="p-2">unique (فريد)</td>
+                  <td class="p-2">copied (منسوخ)</td>
+                </tr>
+                <tr class="border-b border-[var(--line)]">
+                  <td class="p-2 font-bold en">colorful</td>
+                  <td class="p-2">bright (زاهٍ)</td>
+                  <td class="p-2">colorless (بلا ألوان)</td>
+                </tr>
+                <tr class="border-b border-[var(--line)]">
+                  <td class="p-2 font-bold en">interactive</td>
+                  <td class="p-2">participatory (تشاركي)</td>
+                  <td class="p-2">passive (سلبي)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold en">special</td>
+                  <td class="p-2">distinctive (فريد)</td>
+                  <td class="p-2">common (عادي)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+
+function r_p5() {
+  v.innerHTML = `
+    <div class="space-y-6">
+      <div class="bg-[var(--card)] rounded-3xl shadow-[var(--sh)] p-6 sm:p-8 border border-[var(--line)] space-y-4">
+        <h3 class="text-xl font-black text-blue-600">Prefixes, Suffixes & Irregular Verbs (البوادئ واللاحقات)</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)] overflow-x-auto">
+            <h4 class="font-bold text-sm text-blue-600 mb-2">Prefixes and Suffixes</h4>
+            <table class="w-full text-right text-xs">
+              <thead>
+                <tr class="border-b border-[var(--line)] text-[var(--mut)]">
+                  <th class="p-2">Word</th>
+                  <th class="p-2">Affix</th>
+                  <th class="p-2">Part of Speech</th>
+                </tr>
+              </thead>
+              <tbody class="font-medium">
+                <tr class="border-b border-[var(--line)]"><td class="en p-2">colorful</td><td class="en p-2">-ful</td><td>adjective</td></tr>
+                <tr class="border-b border-[var(--line)]"><td class="en p-2">creativity</td><td class="en p-2">-ity</td><td>noun</td></tr>
+                <tr class="border-b border-[var(--line)]"><td class="en p-2">interactive</td><td class="en p-2">inter-</td><td>adjective</td></tr>
+                <tr class="border-b border-[var(--line)]"><td class="en p-2">original</td><td class="en p-2">-al</td><td>adjective</td></tr>
+                <tr class="border-b border-[var(--line)]"><td class="en p-2">artist</td><td class="en p-2">-ist</td><td>noun</td></tr>
+                <tr><td class="en p-2">expression</td><td class="en p-2">-ion</td><td>noun</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+
+          <div class="p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)] overflow-x-auto">
+            <h4 class="font-bold text-sm text-blue-600 mb-2">Irregular Verbs (الأفعال الشاذة)</h4>
+            <table class="w-full text-right text-xs">
+              <thead>
+                <tr class="border-b border-[var(--line)] text-[var(--mut)]">
+                  <th class="p-2">Verb</th>
+                  <th class="p-2">Past Simple</th>
+                  <th class="p-2">Past Participle</th>
+                </tr>
+              </thead>
+              <tbody class="font-medium">
+                <tr class="border-b border-[var(--line)]"><td class="en p-2">make (يصنع)</td><td class="en p-2">made</td><td class="en p-2">made</td></tr>
+                <tr class="border-b border-[var(--line)]"><td class="en p-2">think (يفكر)</td><td class="en p-2">thought</td><td class="en p-2">thought</td></tr>
+                <tr class="border-b border-[var(--line)]"><td class="en p-2">feel (يشعر)</td><td class="en p-2">felt</td><td class="en p-2">felt</td></tr>
+                <tr><td class="en p-2">go (يذهب)</td><td class="en p-2">went</td><td class="en p-2">gone</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+
+function r_p6() {
+  v.innerHTML = `
+    <div class="space-y-6">
+      <div class="bg-[var(--card)] rounded-3xl shadow-[var(--sh)] p-6 sm:p-8 border border-[var(--line)] space-y-4">
+        <h3 class="text-xl font-black text-pink-600">Definitions & Vocabulary Notes (التعريفات والملاحظات)</h3>
+        
+        <div class="space-y-3">
+          <div class="p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)]">
+            <h4 class="en font-black text-pink-600">artwork</h4>
+            <p class="text-sm font-medium">A piece of creative work made by an artist (قطعة إبداعية يصنعها فنان).</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)]">
+            <h4 class="en font-black text-pink-600">sculpture</h4>
+            <p class="text-sm font-medium">An object made by shaping materials such as stone, wood, clay, or metal (جسم صنع بتشكيل مواد مثل الحجر أو الخشب أو الطين أو المعدن).</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)]">
+            <h4 class="en font-black text-pink-600">gallery</h4>
+            <p class="text-sm font-medium">A place where artworks are displayed for people to see (مكان تعرض فيه الأعمال الفنية ليراها الناس).</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)]">
+            <h4 class="en font-black text-pink-600">interactive</h4>
+            <p class="text-sm font-medium">Allowing people to take part or respond directly (يسمح للناس بالمشاركة أو الاستجابة مباشرة).</p>
+          </div>
+        </div>
+
+
+        <div class="p-5 rounded-2xl bg-pink-500/10 border border-pink-500/20 space-y-2 mt-4">
+          <h4 class="font-black text-sm text-pink-600">Vocabulary Notes (ملاحظات لغوية هامة):</h4>
+          <ul class="text-xs space-y-1 font-medium">
+            <li>✓ Word formation: color + -ful -> colorful; create -> creativity.</li>
+            <li>✓ Look-alike / confusable: artist = a person (فنان); artistic = related to art (فني).</li>
+            <li>✓ Countable vs. uncountable: art is usually uncountable; a work of art is countable.</li>
+            <li>✓ V + verb-ing: Use -ing after some verbs like enjoy sharing, keep trying.</li>
+          </ul>
+        </div>
+      </div>
+    </div>`;
+}
+
+
+function r_p7() {
+  v.innerHTML = `
+    <div class="space-y-6">
+      <div class="bg-[var(--card)] rounded-3xl shadow-[var(--sh)] p-6 sm:p-8 border border-[var(--line)] space-y-4">
+        <h3 class="text-xl font-black text-indigo-600">Page 7: Vocabulary Exercises (اختبر معلوماتك)</h3>
+        
+        <div class="space-y-4">
+          <div class="p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)] space-y-2">
+            <p class="font-bold text-sm">1. An artist uses .................... to imagine new and unusual ideas.</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold">
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">a) gallery</button>
+              <button onclick="alert('إجابة صحيحة ✓')" class="p-2 bg-[var(--card)] border rounded-xl text-indigo-600">b) imagination ✓</button>
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">c) material</button>
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">d) message</button>
+            </div>
+          </div>
+
+
+          <div class="p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)] space-y-2">
+            <p class="font-bold text-sm">2. A statue made from clay or stone is a ....................</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold">
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">a) painting</button>
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">b) gallery</button>
+              <button onclick="alert('إجابة صحيحة ✓')" class="p-2 bg-[var(--card)] border rounded-xl text-indigo-600">c) sculpture ✓</button>
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">d) performance</button>
+            </div>
+          </div>
+
+
+          <div class="p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)] space-y-2">
+            <p class="font-bold text-sm">3. The word closest in meaning to "amazing" is ....................</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold">
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">a) ordinary</button>
+              <button onclick="alert('إجابة صحيحة ✓')" class="p-2 bg-[var(--card)] border rounded-xl text-indigo-600">b) incredible ✓</button>
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">c) passive</button>
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">d) copied</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+
+function r_p8() {
+  v.innerHTML = `
+    <div class="space-y-6">
+      <div class="bg-[var(--card)] rounded-3xl shadow-[var(--sh)] p-6 sm:p-8 border border-[var(--line)] space-y-4">
+        <h3 class="text-xl font-black text-teal-600">Page 8: Vocabulary & Grammar Exercises (استكمال التدريبات)</h3>
+        
+        <div class="space-y-4">
+          <div class="p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)] space-y-2">
+            <p class="font-bold text-sm">11. A .................... is a place where people can see artworks.</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold">
+              <button onclick="alert('إجابة صحيحة ✓')" class="p-2 bg-[var(--card)] border rounded-xl text-teal-600">a) gallery ✓</button>
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">b) clay</button>
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">c) emotion</button>
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">d) artist</button>
+            </div>
+          </div>
+
+
+          <div class="p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)] space-y-2">
+            <p class="font-bold text-sm">19. The past simple of "think" is ....................</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold">
+              <button onclick="alert('إجابة صحيحة ✓')" class="p-2 bg-[var(--card)] border rounded-xl text-teal-600">a) thought ✓</button>
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">b) thinked</button>
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">c) thunk</button>
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">d) thinking</button>
+            </div>
+          </div>
+
+
+          <div class="p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)] space-y-2">
+            <p class="font-bold text-sm">20. The past participle of "go" is ....................</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold">
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">a) went</button>
+              <button onclick="alert('إجابة صحيحة ✓')" class="p-2 bg-[var(--card)] border rounded-xl text-teal-600">b) gone ✓</button>
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">c) goed</button>
+              <button onclick="alert('خطأ')" class="p-2 bg-[var(--card)] border rounded-xl">d) going</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+
+function r_p9() {
+  v.innerHTML = `
+    <div class="space-y-6">
+      <div class="bg-[var(--card)] rounded-3xl shadow-[var(--sh)] p-6 sm:p-8 border border-[var(--line)] space-y-4">
+        <h3 class="text-xl font-black text-orange-600">Page 9: Language - Connectors of Cause, Result, and Contrast</h3>
+        <p class="text-sm font-medium text-[var(--mut)]">
+          نستخدم أدوات الربط لنجعل الأفكار مترابطة وواضحة. because يوضح السبب، so يوضح النتيجة، بينما but و although يوضحان التضاد بين فكرتين.
+        </p>
+
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-right border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-[var(--line)] text-xs text-[var(--mut)]">
+                <th class="p-3">Connector</th>
+                <th class="p-3">Function</th>
+                <th class="p-3">Structure</th>
+                <th class="p-3">المعنى</th>
+              </tr>
+            </thead>
+            <tbody class="font-medium">
+              <tr class="border-b border-[var(--line)]">
+                <td class="p-3 en font-bold text-orange-600">because</td>
+                <td class="p-3">cause</td>
+                <td class="p-3 en text-xs">main clause + because + reason</td>
+                <td class="p-3">لأن</td>
+              </tr>
+              <tr class="border-b border-[var(--line)]">
+                <td class="p-3 en font-bold text-orange-600">so</td>
+                <td class="p-3">result</td>
+                <td class="p-3 en text-xs">cause, so + result</td>
+                <td class="p-3">لذلك</td>
+              </tr>
+              <tr class="border-b border-[var(--line)]">
+                <td class="p-3 en font-bold text-orange-600">but</td>
+                <td class="p-3">contrast</td>
+                <td class="p-3 en text-xs">idea, but + opposite idea</td>
+                <td class="p-3">لكن</td>
+              </tr>
+              <tr>
+                <td class="p-3 en font-bold text-orange-600">although</td>
+                <td class="p-3">contrast</td>
+                <td class="p-3 en text-xs">Although + clause, main clause</td>
+                <td class="p-3">على الرغم من أن</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+        <div class="p-5 rounded-2xl bg-orange-500/10 border border-orange-500/20 space-y-2">
+          <h4 class="font-black text-sm text-orange-600">Important Rules & Common Mistake:</h4>
+          <ul class="text-xs space-y-1 font-medium">
+            <li>✓ Use because before a reason.</li>
+            <li>✓ Use so before a result.</li>
+            <li>✓ Use but or although to show contrast.</li>
+            <li>❌ <span class="text-red-500 font-bold">Common mistake:</span> Although I was tired, but I kept trying.</li>
+            <li>✓ <span class="text-emerald-600 font-bold">Correct:</span> Although I was tired, I kept trying. (Do not use although and but together in the same structure).</li>
+          </ul>
+        </div>
+      </div>
+    </div>`;
+}
+
+
+function r_p10() {
+  var exs = [
+    ["1. I felt nervous. I gave the presentation.", "(although)", "Although I felt nervous, I gave the presentation."],
+    ["2. The gallery was crowded. We enjoyed the visit.", "(but)", "The gallery was crowded, but we enjoyed the visit."],
+    ["3. Mona likes art. It helps her express herself.", "(because)", "Mona likes art because it helps her express herself."],
+    ["4. The artist worked for months. The sculpture was excellent.", "(so)", "The artist worked for months, so the sculpture was excellent."],
+    ["5. He was afraid of speaking. He shared his ideas clearly.", "(although)", "Although he was afraid of speaking, he shared his ideas clearly."],
+    ["6. The painting was simple. It had a strong message.", "(but)", "The painting was simple, but it had a strong message."],
+    ["7. I went to bed early. I felt tired.", "(because)", "I went to bed early because I felt tired."],
+    ["8. Youssef used bright colors. The painting looked lively.", "(so)", "Youssef used bright colors, so the painting looked lively."],
+    ["9. The task was difficult. The students did not give up.", "(although)", "Although the task was difficult, the students did not give up."],
+    ["10. The exhibition was small. It was very interesting.", "(but)", "The exhibition was small, but it was very interesting."],
+    ["11. She visited the gallery. She wanted to see the new artworks.", "(because)", "She visited the gallery because she wanted to see the new artworks."],
+    ["12. They practiced carefully. Their performance improved.", "(so)", "They practiced carefully, so their performance improved."]
+  ];
+
+
+  v.innerHTML = `
+    <div class="space-y-6">
+      <div class="bg-[var(--card)] rounded-3xl shadow-[var(--sh)] p-6 sm:p-8 border border-[var(--line)] space-y-4">
+        <h3 class="text-xl font-black text-violet-600">Page 10: Rewrite Exercises (تمارين إعادة كتابة الجمل)</h3>
+        <p class="text-sm font-bold text-[var(--mut)]">أعد كتابة الجمل باستخدام الكلمة بين القوسين:</p>
+
+
+        <div class="space-y-3">
+          ${exs.map(function(e, idx) {
+            return `<div class="p-4 rounded-2xl bg-[var(--bg)] border border-[var(--line)] space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm">${e[0]}</span>
+                <span class="text-xs px-2.5 py-1 rounded-full bg-violet-500/10 text-violet-600 font-bold en">${e[1]}</span>
+              </div>
+              <div class="pt-2 border-t border-[var(--line)] flex items-center justify-between">
+                <span class="en text-sm font-black text-violet-600">${e[2]}</span>
+                <button onclick="say('${e[2]}')" class="text-xs px-3 py-1 rounded-xl bg-[var(--card)] border font-bold">🔊 استماع</button>
+              </div>
+            </div>`;
+          }).join("")}
+        </div>
+      </div>
+    </div>`;
+}
+
+
+document.addEventListener("keydown", function(e) {
+  var i = T.map(function(t) { return t[0]; }).indexOf(cur);
+  if (e.key === "ArrowLeft" && i < T.length - 1) go(T[i + 1][0]);
+  if (e.key === "ArrowRight" && i > 0) go(T[i - 1][0]);
+});
+
+
+go("p1");
+</script>
+</body>
+</html>

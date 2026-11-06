@@ -1004,6 +1004,8 @@
                 if (!id && m) id = m[2];
                 return id && /^[\w-]{6,}$/.test(id) ? 'https://www.youtube.com/embed/' + id : null;
             }
+            // صفحات HTML (اختبارات) مرفوعة على GitHub Pages أو نفس موقع المنصة
+            if ((host.endsWith('.github.io') || host === location.hostname) && /\.html?$/i.test(path)) return u.href;
             // ملف PDF مباشر على أي موقع
             if (/\.pdf$/i.test(path)) return 'https://docs.google.com/gview?embedded=1&url=' + encodeURIComponent(u.href);
             return null;
