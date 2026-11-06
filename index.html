@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة مستر مصطفى أحمد | Mr. Mostafa Ahmed Portal</title>
+    <style>
+        :root {
+            --bg-main: #07181d;
+            --bg-card: #0d2a31;
+            --bg-card-hover: #133842;
+            --bg-input: #081b20;
+            --border: #1e4a52;
+            --gold: #d4a63a;
+            --gold-hover: #e5b64a;
+            --emerald: #10b981;
+            --indigo: #6366f1;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', system-ui, -apple-system, 'Segoe UI', Tahoma, Arial, sans-serif; }
+        body {
+            background: radial-gradient(circle at top, #0f3a42 0%, var(--bg-main) 65%) fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+        .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+        .hidden { display: none !important; }
+        header { background: var(--bg-card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 40; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; flex-wrap: wrap; gap: 10px; }
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .avatar { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--gold); background: var(--bg-input); object-fit: cover; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+            padding: 8px 14px; border-radius: 10px; font-size: 13px; font-weight: 600;
+            cursor: pointer; border: none; text-decoration: none; transition: 0.2s;
+        }
+        .btn-gold { background: var(--gold); color: #07181d; font-weight: 700; }
+        .btn-gold:hover { background: var(--gold-hover); }
+        .btn-indigo { background: var(--indigo); color: #fff; }
+        .btn-indigo:hover { opacity: 0.9; }
+        .btn-emerald { background: var(--emerald); color: #fff; }
+        .btn-emerald:hover { opacity: 0.9; }
+        .btn-outline { background: rgba(16, 185, 129, 0.1); color: var(--emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .btn-danger { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .btn-secondary { background: #1e293b; color: #cbd5e1; border: 1px solid var(--border); }
+        
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+            padding: 20px; transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover { transform: translateY(-2px); border-color: var(--gold); }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; background: rgba(212, 166, 58, 0.15); color: var(--gold); border: 1px solid rgba(212, 166, 58, 0.3); }
+        
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
+            z-index: 50; display: flex; align-items: center; justify-content: center; padding: 16px;
+        }
+        .modal {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px;
+            width: 100%; max-width: 500px; padding: 22px; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .form-control { width: 100%; padding: 10px 14px; border-radius: 10px; background: var(--bg-input); border: 1px solid var(--border); color: #fff; font-size: 13px; margin-top: 5px; outline: none; }
+        .form-control:focus { border-color: var(--gold); }
+        label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+        
+        .toast {
+            position: fixed; bottom: 20px; left: 20px; background: #0f172a; color: #fff;
+            border: 1px solid var(--gold); padding: 12px 20px; border-radius: 12px; font-size: 13px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4); z-index: 99; animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .progress-bar { width: 100%; height: 8px; background: var(--bg-input); border-radius: 4px; overflow: hidden; margin-top: 8px; }
+        .progress-fill { height: 100%; background: var(--emerald); width: 0%; transition: width 0.2s; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="brand">
+                <div class="avatar" style="display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--gold);">👨‍🏫</div>
+                <div>
+                    <h1 style="font-size:16px;font-weight:700;">Mr. Mostafa Ahmed</h1>
+                    <p style="font-size:11px;color:var(--gold);font-weight:600;">منصة اللغة الإنجليزية التعليمية الشاملة</p>
+                </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+                <div id="student-auth-header">
+                    <button onclick="openStudentLoginModal()" class="btn btn-outline">
+                        👤 تسجيل دخول الطالب
+                    </button>
+                </div>
+                <button onclick="openAdminModal()" class="btn btn-indigo">
+                    🔒 لوحة التحكم
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container" style="padding-top:30px;padding-bottom:30px;flex-grow:1;">
+
+        <!-- View 1: Grades Grid -->
+        <div id="view-grades">
+            <div style="text-align:center;margin-bottom:28px;">
+                <span class="badge">Portal 2026</span>
+                <h2 style="font-size:24px;margin-top:8px;">اختر المرحلة الدراسية</h2>
+                <p style="font-size:13px;color:var(--text-muted);margin-top:4px;">تصفح المذكرات، الكتب، والاختبارات المحدثة سحابياً ومباشرة.</p>
+            </div>
+
+            <!-- Course Gate Card -->
+            <div onclick="openCourseGate()" class="card" style="margin-bottom:24px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg, rgba(212,166,58,0.1), rgba(13,42,49,0.9));">
+                <div style="display:flex;gap:14px;align-items:center;">
+                    <div style="font-size:26px;">🔑</div>
+                    <div>
+                        <h3 style="font-size:16px;color:#fff;">كورسات التأسيس (بالكود)</h3>
+                        <p style="font-size:12px;color:var(--text-muted);">ادخل الكود الخاص بك للوصول لشروحات وفيديوهات ومذكرات الكورس</p>
+                    </div>
+                </div>
+                <span style="font-size:18px;color:var(--gold);">◀</span>
+            </div>
+
+            <div class="grid-3" id="grades-grid"></div>
+        </div>
+
+        <!-- View 2: Grade Categories -->
+        <div id="view-categories" class="hidden">
+            <div class="card" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+                <div>
+                    <span style="font-size:11px;color:var(--gold);">المرحلة الحالية</span>
+                    <h2 id="selected-grade-title" style="font-size:18px;"></h2>
+                </div>
+                <button onclick="goHome()" class="btn btn-secondary">الرجوع للمراحل ◀</button>
+            </div>
+
+            <div class="grid-3" style="max-width:700px;margin:0 auto;">
+                <div onclick="openSection('notes')" class="card" style="cursor:pointer;text-align:center;padding:32px 20px;">
+                    <div style="font-size:40px;margin-bottom:12px;">📚</div>
+                    <h3 style="font-size:17px;margin-bottom:6px;">المذكرات والكتب الدراسية</h3>
+                    <p style="font-size:12px;color:var(--text-muted);">تحميل ومطالعة مذكرات الشرح والأسئلة بصيغة PDF</p>
+                </div>
+                <div onclick="openSection('exams')" class="card" style="cursor:pointer;text-align:center;padding:32px 20px;">
+                    <div style="font-size:40px;margin-bottom:12px;">📝</div>
+                    <h3 style="font-size:17px;margin-bottom:6px;">الاختبارات والتطبيقات الذكية</h3>
+                    <p style="font-size:12px;color:var(--text-muted);">امتحانات تفاعلية مع تصحيح فوري وحفظ درجتك</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- View 3: Items List -->
+        <div id="view-items" class="hidden">
+            <div class="card" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                <div>
+                    <span id="items-breadcrumb" style="font-size:11px;color:var(--gold);"></span>
+                    <h2 id="items-section-title" style="font-size:18px;"></h2>
+                </div>
+                <button onclick="backToCategories()" class="btn btn-secondary">الرجوع للأقسام ◀</button>
+            </div>
+
+            <input id="itemSearch" oninput="renderItemsList()" type="search" placeholder="🔍 ابحث في هذا القسم..." class="form-control" style="max-width:400px;margin:0 auto 20px auto;display:block;">
+
+            <div id="items-grid" class="grid-3"></div>
+        </div>
+
+    </main>
+
+    <!-- Student Auth Modal -->
+    <div id="studentLoginModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;border-bottom:1px solid var(--border);padding-bottom:10px;">
+                <h3 style="font-size:16px;color:var(--emerald);">👤 سجل درجات الطالب</h3>
+                <button onclick="closeModal('studentLoginModal')" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;">&times;</button>
+            </div>
+            
+            <div id="student-auth-form">
+                <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">أدخل اسمك ورقم الهاتف لمتابعة درجاتك في جميع الامتحانات.</p>
+                <div style="margin-bottom:12px;">
+                    <label>اسم الطالب رباعي</label>
+                    <input type="text" id="authStudentName" class="form-control" placeholder="اكتب اسمك...">
+                </div>
+                <div style="margin-bottom:16px;">
+                    <label>رقم هاتف الطالب / ولي الأمر</label>
+                    <input type="tel" id="authStudentPhone" dir="ltr" class="form-control" placeholder="01xxxxxxxxx">
+                </div>
+                <button onclick="loginStudent()" class="btn btn-emerald" style="width:100%;padding:10px;">دخول لسجلي</button>
+            </div>
+
+            <div id="student-profile-view" class="hidden">
+                <div style="background:var(--bg-input);padding:12px;border-radius:10px;margin-bottom:14px;">
+                    <div style="font-size:13px;font-weight:700;" id="profileName"></div>
+                    <div style="font-size:12px;color:var(--emerald);" dir="ltr" id="profilePhone"></div>
+                </div>
+                <h4 style="font-size:13px;color:var(--gold);margin-bottom:8px;">سجل الاختبارات والدرجات:</h4>
+                <div id="student-scores-list" style="max-height:220px;overflow-y:auto;margin-bottom:14px;"></div>
+                <button onclick="logoutStudent()" class="btn btn-danger" style="width:100%;">تسجيل خروج</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Solve Exam Modal -->
+    <div id="solveModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:10px;">
+                <h3 id="solve-test-title" style="font-size:15px;color:var(--gold);">حل الاختبار</h3>
+                <button onclick="closeModal('solveModal')" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+                <div>
+                    <label>اسم الطالب</label>
+                    <input type="text" id="solveStudentName" class="form-control" placeholder="اكتب اسمك هنا...">
+                </div>
+                <div>
+                    <label>سؤال 1: Choose: (He usually ... English every day.)</label>
+                    <select id="q1" class="form-control">
+                        <option value="">اختر الإجابة...</option>
+                        <option value="studies">A) studies</option>
+                        <option value="study">B) study</option>
+                        <option value="studying">C) studying</option>
+                    </select>
+                </div>
+                <div>
+                    <label>سؤال 2: Choose the correct spelling:</label>
+                    <select id="q2" class="form-control">
+                        <option value="">اختر الإجابة...</option>
+                        <option value="Language">A) Language</option>
+                        <option value="Languge">B) Languge</option>
+                    </select>
+                </div>
+                <div style="display:flex;gap:10px;margin-top:10px;">
+                    <button onclick="submitInAppTest()" class="btn btn-emerald" style="flex:1;">تسليم وتصحيح فوري</button>
+                    <button onclick="closeModal('solveModal')" class="btn btn-secondary">إلغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div id="resultModal" class="modal-overlay hidden">
+        <div class="modal" style="text-align:center;">
+            <div style="font-size:48px;margin-bottom:10px;">🎉</div>
+            <h3 style="font-size:20px;color:var(--emerald);margin-bottom:4px;">تم تسليم الاختبار!</h3>
+            <p id="res-score-text" style="font-size:16px;font-weight:700;margin-bottom:16px;"></p>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+                <button onclick="sendResultToWhatsApp()" class="btn btn-emerald" style="width:100%;">
+                    📲 إرسال النتيجة لمستر مصطفى على واتساب
+                </button>
+                <button onclick="closeModal('resultModal')" class="btn btn-secondary" style="width:100%;">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Master Control Modal -->
+    <div id="adminModal" class="modal-overlay hidden">
+        <div class="modal" style="max-width:560px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;border-bottom:1px solid var(--border);padding-bottom:10px;">
+                <h3 style="font-size:16px;color:var(--gold);">لوحة تحكم مستر مصطفى أحمد</h3>
+                <button onclick="closeModal('adminModal')" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;">&times;</button>
+            </div>
+
+            <!-- Login View -->
+            <div id="admin-login-view">
+                <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">تسجيل دخول الأدمن لإدارة ونشر المحتوى سحابياً.</p>
+                <div style="margin-bottom:10px;">
+                    <label>البريد الإلكتروني للأدمن</label>
+                    <input type="email" id="adminEmailInput" dir="ltr" class="form-control" value="ma3955730@gmail.com">
+                </div>
+                <div style="margin-bottom:14px;">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="adminPasswordInput" dir="ltr" class="form-control" placeholder="••••••••">
+                </div>
+                <button onclick="verifyAdmin()" class="btn btn-indigo" style="width:100%;">تسجيل الدخول كأدمن</button>
+            </div>
+
+            <!-- Panel View -->
+            <div id="admin-panel-view" class="hidden" style="display:flex;flex-direction:column;gap:16px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(16,185,129,0.1);padding:8px 12px;border-radius:10px;border:1px solid rgba(16,185,129,0.3);">
+                    <span style="font-size:12px;color:var(--emerald);">✅ أنت متصل بحساب الأدمن</span>
+                    <button onclick="adminLogout()" class="btn btn-danger" style="padding:4px 10px;font-size:11px;">تسجيل خروج</button>
+                </div>
+
+                <!-- Add Content Form -->
+                <div class="card" style="padding:16px;">
+                    <h4 style="font-size:13px;color:var(--gold);margin-bottom:10px;">➕ إضافة مذكرة أو اختبار جديد</h4>
+                    <form onsubmit="saveNewContent(event)" style="display:flex;flex-direction:column;gap:10px;">
+                        <div>
+                            <label>الصف الدراسي</label>
+                            <select id="admGrade" class="form-control"></select>
+                        </div>
+                        <div>
+                            <label>نوع القسم</label>
+                            <select id="admCategory" class="form-control">
+                                <option value="notes">مذكرات وكتب (PDF / شرح)</option>
+                                <option value="exams">اختبارات وتطبيقات</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>عنوان المذكرة أو الاختبار</label>
+                            <input type="text" id="admTitle" required placeholder="مثال: مراجعة شاملة للوحدة الأولى" class="form-control">
+                        </div>
+                        <div>
+                            <label>طريقة التوفير:</label>
+                            <div style="display:flex;gap:16px;margin-top:4px;font-size:12px;">
+                                <label><input type="radio" name="upMode" value="file" checked onclick="toggleUploadMode('file')"> رفع ملف PDF / صورة إلى السحابة</label>
+                                <label><input type="radio" name="upMode" value="link" onclick="toggleUploadMode('link')"> رابط خارجي</label>
+                            </div>
+                        </div>
+                        <div id="fileBox">
+                            <label>اختر الملف (يرفع مباشرة إلى Firebase Storage)</label>
+                            <input type="file" id="admFile" class="form-control">
+                            <div class="progress-bar hidden" id="uploadProgressBox">
+                                <div class="progress-fill" id="uploadProgressBar"></div>
+                            </div>
+                        </div>
+                        <div id="linkBox" class="hidden">
+                            <label>الرابط</label>
+                            <input type="url" id="admLink" dir="ltr" placeholder="https://..." class="form-control">
+                        </div>
+                        <button type="submit" id="submitBtn" class="btn btn-gold" style="margin-top:6px;">نشر الآن لجميع الطلاب</button>
+                    </form>
+                </div>
+
+                <!-- Course Management (Codes) -->
+                <div class="card" style="padding:16px;">
+                    <h4 style="font-size:13px;color:var(--gold);margin-bottom:10px;">🔑 إدارة كورسات التأسيس (بالأكواد)</h4>
+                    <div style="display:flex;gap:8px;margin-bottom:8px;">
+                        <input id="crsTitle" placeholder="اسم الكورس الجديد" class="form-control" style="margin-top:0;">
+                        <button type="button" onclick="createCourse()" class="btn btn-gold" style="white-space:nowrap;">إنشاء كود</button>
+                    </div>
+                    <div style="margin-bottom:8px;">
+                        <label>إضافة محتوى لكورس موجود</label>
+                        <select id="crsSelect" class="form-control"></select>
+                    </div>
+                    <input id="crsItemTitle" placeholder="عنوان الدرس أو المذكرة" class="form-control" style="margin-bottom:8px;">
+                    <input id="crsItemLink" dir="ltr" placeholder="رابط الدرس (يوتيوب أو درايف)" class="form-control" style="margin-bottom:8px;">
+                    <input id="crsItemFile" type="file" class="form-control" style="margin-bottom:8px;">
+                    <button type="button" onclick="addCourseItem()" class="btn btn-emerald" style="width:100%;margin-bottom:12px;">إضافة للكورس المختار</button>
+                    <div id="crs-list" style="max-height:160px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;"></div>
+                </div>
+
+                <!-- Existing Items Management -->
+                <div>
+                    <h4 style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">المحتويات المنشورة حالياً:</h4>
+                    <div id="admin-items-list" style="max-height:150px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Teacher -->
+    <section class="container" style="margin-top:auto;padding-top:20px;">
+        <div class="card" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;background:linear-gradient(135deg, rgba(13,42,49,0.9), rgba(15,58,66,0.5));">
+            <div>
+                <span class="badge" style="margin-bottom:4px;">معلم اللغة الإنجليزية</span>
+                <h3 style="font-size:18px;">مستر مصطفى أحمد</h3>
+                <p style="font-size:12px;color:var(--text-muted);">لأي استفسار بخصوص المذكرات، الحصص، أو حلول الاختبارات تواصل مباشرة.</p>
+            </div>
+            <div style="display:flex;gap:8px;">
+                <a href="https://wa.me/201032141669" target="_blank" class="btn btn-emerald">واتساب 💬</a>
+                <a href="tel:+201032141669" class="btn btn-secondary"><span dir="ltr">01032141669</span> 📞</a>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align:center;padding:16px 0;font-size:12px;color:var(--text-muted);margin-top:20px;">
+        جميع الحقوق محفوظة لمستر مصطفى أحمد © 2026
+    </footer>
+
+    <!-- Firebase Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signInAnonymously, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDoc, getDocs, setDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
+
+        // إعدادات مشروعك في Firebase (جاهزة ومضبوطة)
+        const firebaseConfig = {
+            apiKey: "AIzaSyD7CQdmXzlh8MJ8ccxk8DehFS8-GmuYYUY",
+            authDomain: "mostafa-portal.firebaseapp.com",
+            projectId: "mostafa-portal",
+            storageBucket: "mostafa-portal.firebasestorage.app",
+            messagingSenderId: "412501038359",
+            appId: "1:412501038359:web:beba12dabf7c4ccd505352"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const storage = getStorage(app);
+
+        const ADMIN_EMAIL = "ma3955730@gmail.com";
+        const teacherPhone = "201032141669";
+
+        let portalContent = [];
+        let studentScoresData = [];
+        let commentsData = [];
+        let currentStudent = JSON.parse(localStorage.getItem('mostafa_current_student')) || null;
+        let currentGrade = null;
+        let currentCategory = null;
+        let activeSolveTitle = "";
+        let lastResultMsg = "";
+
+        const gradesList = [
+            "الأول الابتدائي", "الثاني الابتدائي", "الثالث الابتدائي",
+            "الرابع الابتدائي", "الخامس الابتدائي", "السادس الابتدائي",
+            "الأول الإعدادي", "الثاني الإعدادي", "الثالث الإعدادي",
+            "الأول الثانوي", "الثاني الثانوي", "الثالث الثانوي"
+        ];
+
+        // تهيئة الدخول المجهول للطلاب لقراءة وتحديث البيانات الحية
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                signInAnonymously(auth).catch(() => {});
+            }
+            if (user && user.email === ADMIN_EMAIL) {
+                showAdminPanel(true);
+            }
+        });
+
+        // مزامنة المذكرات والاختبارات في الوقت الفعلي
+        onSnapshot(collection(db, 'portal_items'), (snap) => {
+            portalContent = [];
+            snap.forEach(d => portalContent.push({ id: d.id, ...d.data() }));
+            if (currentGrade && currentCategory) renderItemsList();
+            renderAdminList();
+        });
+
+        // مزامنة نتائج الطلاب في الوقت الفعلي
+        onSnapshot(collection(db, 'portal_scores'), (snap) => {
+            studentScoresData = [];
+            snap.forEach(d => studentScoresData.push(d.data()));
+            if (currentStudent) updateStudentProfileModalScores();
+        });
+
+        // مزامنة التعليقات
+        onSnapshot(collection(db, 'portal_comments'), (snap) => {
+            commentsData = [];
+            snap.forEach(d => commentsData.push(d.data()));
+            if (currentGrade && currentCategory) renderItemsList();
+        });
+
+        const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        const jsq = v => esc(JSON.stringify(String(v ?? '')));
+
+        window.renderGrades = function() {
+            const grid = document.getElementById('grades-grid');
+            grid.innerHTML = gradesList.map((g, idx) => `
+                <div onclick="selectGrade(${jsq(g)})" class="card" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        <span class="badge" style="font-size:14px;padding:6px 12px;">${idx + 1}</span>
+                        <div>
+                            <h3 style="font-size:15px;color:#fff;">${esc(g)}</h3>
+                            <p style="font-size:11px;color:var(--text-muted);">مذكرات، كتب واختبارات</p>
+                        </div>
+                    </div>
+                    <span style="color:var(--gold);">◀</span>
+                </div>
+            `).join('');
+
+            const admSel = document.getElementById('admGrade');
+            admSel.innerHTML = gradesList.map(g => `<option value="${esc(g)}">${esc(g)}</option>`).join('');
+        };
+
+        window.selectGrade = function(grade) {
+            currentGrade = grade;
+            document.getElementById('selected-grade-title').textContent = grade;
+            document.getElementById('view-grades').classList.add('hidden');
+            document.getElementById('view-categories').classList.remove('hidden');
+        };
+
+        window.goHome = function() {
+            currentGrade = null;
+            document.getElementById('view-categories').classList.add('hidden');
+            document.getElementById('view-items').classList.add('hidden');
+            document.getElementById('view-grades').classList.remove('hidden');
+        };
+
+        window.openSection = function(cat) {
+            currentCategory = cat;
+            document.getElementById('view-categories').classList.add('hidden');
+            document.getElementById('view-items').classList.remove('hidden');
+            document.getElementById('items-breadcrumb').textContent = currentGrade;
+            document.getElementById('items-section-title').textContent = cat === 'notes' ? 'المذكرات والكتب الدراسية' : 'الاختبارات والتطبيقات الذكية';
+            renderItemsList();
+        };
+
+        window.backToCategories = function() {
+            document.getElementById('view-items').classList.add('hidden');
+            document.getElementById('view-categories').classList.remove('hidden');
+        };
+
+        window.renderItemsList = function() {
+            const grid = document.getElementById('items-grid');
+            const q = (document.getElementById('itemSearch')?.value || '').trim().toLowerCase();
+            const items = portalContent.filter(i => i.grade === currentGrade && i.category === currentCategory && (!q || String(i.title).toLowerCase().includes(q)))
+                .sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+
+            if (items.length === 0) {
+                grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);">لا توجد ملفات أو اختبارات مضافة هنا بعد.</div>`;
+                return;
+            }
+
+            grid.innerHTML = items.map(item => {
+                const itemComments = commentsData.filter(c => c.itemId === item.title);
+                return `
+                <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;gap:14px;">
+                    <div>
+                        <span class="badge">${item.category === 'notes' ? 'مذكرة / كتاب' : 'اختبار'}</span>
+                        <h3 style="font-size:15px;margin-top:8px;">${esc(item.title)}</h3>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--border);padding-top:10px;">
+                        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                            ${currentCategory === 'exams' ? `
+                                <button onclick="openSolveModal(${jsq(item.title)})" class="btn btn-emerald" style="flex:1;">حل الاختبار ✍️</button>
+                            ` : ''}
+                            <a href="${esc(item.url)}" target="_blank" rel="noopener" class="btn btn-indigo" style="flex:1;">فتح / تحميل 📥</a>
+                        </div>
+
+                        <!-- Comments -->
+                        <div style="background:var(--bg-input);padding:10px;border-radius:10px;font-size:12px;">
+                            <div style="font-weight:700;color:var(--gold);margin-bottom:6px;">💬 استفسارات الطلاب (${itemComments.length})</div>
+                            <div style="max-height:80px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;margin-bottom:6px;">
+                                ${itemComments.length === 0 ? '<span style="color:var(--text-muted);">لا توجد أسئلة بعد.</span>' : 
+                                itemComments.map(c => `<div><strong>${esc(c.studentName)}:</strong> <span style="color:#cbd5e1;">${esc(c.commentText)}</span></div>`).join('')}
+                            </div>
+                            <div style="display:flex;gap:4px;">
+                                <input type="text" id="comm_in_${item.id}" placeholder="اكتب سؤالك..." class="form-control" style="margin-top:0;font-size:11px;padding:6px 10px;">
+                                <button onclick="postComment(${jsq(item.title)}, ${jsq(item.id)})" class="btn btn-gold" style="padding:6px 10px;font-size:11px;">إرسال</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        };
+
+        // Student Login & Scores
+        window.openStudentLoginModal = function() {
+            if (currentStudent) {
+                document.getElementById('student-auth-form').classList.add('hidden');
+                document.getElementById('student-profile-view').classList.remove('hidden');
+                document.getElementById('profileName').textContent = currentStudent.name;
+                document.getElementById('profilePhone').textContent = currentStudent.phone;
+                updateStudentProfileModalScores();
+            } else {
+                document.getElementById('student-auth-form').classList.remove('hidden');
+                document.getElementById('student-profile-view').classList.add('hidden');
+            }
+            document.getElementById('studentLoginModal').classList.remove('hidden');
+        };
+
+        window.loginStudent = function() {
+            const name = document.getElementById('authStudentName').value.trim();
+            const phone = document.getElementById('authStudentPhone').value.trim();
+            if (!name || !phone) { alertToast("يرجى إدخال الاسم ورقم الهاتف."); return; }
+            currentStudent = { name, phone };
+            localStorage.setItem('mostafa_current_student', JSON.stringify(currentStudent));
+            updateStudentHeader();
+            openStudentLoginModal();
+            alertToast("مرحباً بك " + name + "!");
+        };
+
+        window.logoutStudent = function() {
+            currentStudent = null;
+            localStorage.removeItem('mostafa_current_student');
+            updateStudentHeader();
+            closeModal('studentLoginModal');
+            alertToast("تم تسجيل الخروج بنجاح.");
+        };
+
+        function updateStudentHeader() {
+            const h = document.getElementById('student-auth-header');
+            if (currentStudent) {
+                h.innerHTML = `<button onclick="openStudentLoginModal()" class="btn btn-outline">👤 ${esc(currentStudent.name)}</button>`;
+            } else {
+                h.innerHTML = `<button onclick="openStudentLoginModal()" class="btn btn-outline">👤 تسجيل دخول الطالب</button>`;
+            }
+        }
+
+        function updateStudentProfileModalScores() {
+            if (!currentStudent) return;
+            const list = document.getElementById('student-scores-list');
+            const myScores = studentScoresData.filter(s => s.phone === currentStudent.phone);
+            if (myScores.length === 0) {
+                list.innerHTML = `<div style="text-align:center;color:var(--text-muted);font-size:12px;padding:14px;">لم تقم بحل أي اختبار بعد.</div>`;
+            } else {
+                list.innerHTML = myScores.map(s => `
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px;background:var(--bg-input);border-radius:8px;margin-bottom:6px;font-size:12px;">
+                        <span>${esc(s.testTitle)}</span>
+                        <span class="badge" style="color:var(--emerald);">${s.score}/2 درجات</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        window.openSolveModal = function(title) {
+            activeSolveTitle = title;
+            document.getElementById('solve-test-title').textContent = "اختبار: " + title;
+            document.getElementById('solveStudentName').value = currentStudent ? currentStudent.name : '';
+            document.getElementById('solveModal').classList.remove('hidden');
+        };
+
+        window.submitInAppTest = async function() {
+            const stName = document.getElementById('solveStudentName').value.trim();
+            const q1 = document.getElementById('q1').value;
+            const q2 = document.getElementById('q2').value;
+            if (!stName) { alertToast("يرجى إدخال اسمك أولاً."); return; }
+
+            let score = 0;
+            if (q1 === 'studies') score++;
+            if (q2 === 'Language') score++;
+
+            lastResultMsg = `مستر مصطفى أحمد، نتيجة الاختبار:\nالطالب: ${stName}\nالاختبار: ${activeSolveTitle}\nالدرجة: ${score}/2`;
+
+            try {
+                await addDoc(collection(db, 'portal_scores'), {
+                    studentName: stName,
+                    phone: currentStudent ? currentStudent.phone : 'غير_مسجل',
+                    score: score,
+                    testTitle: activeSolveTitle,
+                    createdAt: Date.now()
+                });
+            } catch(e) {}
+
+            closeModal('solveModal');
+            document.getElementById('res-score-text').textContent = `الدرجة الحاصل عليها: ${score} من 2`;
+            document.getElementById('resultModal').classList.remove('hidden');
+        };
+
+        window.sendResultToWhatsApp = function() {
+            window.open(`https://wa.me/${teacherPhone}?text=${encodeURIComponent(lastResultMsg)}`, '_blank');
+            closeModal('resultModal');
+        };
+
+        window.postComment = async function(itemTitle, inputId) {
+            const textEl = document.getElementById('comm_in_' + inputId);
+            const text = textEl.value.trim();
+            const author = currentStudent ? currentStudent.name : 'طالب';
+            if (!text) return;
+            try {
+                await addDoc(collection(db, 'portal_comments'), {
+                    itemId: itemTitle,
+                    studentName: author,
+                    commentText: text,
+                    createdAt: Date.now()
+                });
+                textEl.value = '';
+                alertToast("تم نشر سؤالك بنجاح!");
+            } catch(e) {
+                alertToast("تعذر إرسال التعليق.");
+            }
+        };
+
+        // Admin Auth & Cloud Storage Upload
+        window.openAdminModal = function() {
+            document.getElementById('adminModal').classList.remove('hidden');
+            if (auth.currentUser && auth.currentUser.email === ADMIN_EMAIL) {
+                showAdminPanel(true);
+            }
+        };
+
+        function showAdminPanel(on) {
+            document.getElementById('admin-login-view').classList.toggle('hidden', on);
+            document.getElementById('admin-panel-view').classList.toggle('hidden', !on);
+            if (on) { renderAdminList(); startCourseAdmin(); }
+        }
+
+        window.verifyAdmin = async function() {
+            const email = document.getElementById('adminEmailInput').value.trim();
+            const pass = document.getElementById('adminPasswordInput').value;
+            if (!email || !pass) { alertToast("اكتب الإيميل وكلمة المرور."); return; }
+            try {
+                const cred = await signInWithEmailAndPassword(auth, email, pass);
+                if (cred.user.email !== ADMIN_EMAIL) {
+                    await signOut(auth);
+                    alertToast("هذا الحساب ليس أدمن.");
+                    return;
+                }
+                document.getElementById('adminPasswordInput').value = '';
+                showAdminPanel(true);
+                alertToast("تم تسجيل الدخول بنجاح!");
+            } catch(e) {
+                alertToast("الإيميل أو كلمة المرور غير صحيحة.");
+            }
+        };
+
+        window.adminLogout = async function() {
+            await signOut(auth);
+            showAdminPanel(false);
+            closeModal('adminModal');
+            alertToast("تم الخروج من لوحة التحكم.");
+        };
+
+        window.toggleUploadMode = function(mode) {
+            document.getElementById('fileBox').classList.toggle('hidden', mode !== 'file');
+            document.getElementById('linkBox').classList.toggle('hidden', mode !== 'link');
+        };
+
+        // الرفع المباشر إلى Firebase Storage
+        window.saveNewContent = async function(e) {
+            e.preventDefault();
+            const grade = document.getElementById('admGrade').value;
+            const category = document.getElementById('admCategory').value;
+            const title = document.getElementById('admTitle').value.trim();
+            const mode = document.querySelector('input[name="upMode"]:checked').value;
+            const submitBtn = document.getElementById('submitBtn');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = "جاري النشر...";
+
+            try {
+                let downloadUrl = "";
+                let type = mode;
+
+                if (mode === 'file') {
+                    const fileInput = document.getElementById('admFile');
+                    const file = fileInput.files[0];
+                    if (!file) { alertToast("اختر ملفاً للرفع."); submitBtn.disabled = false; submitBtn.textContent = "نشر الآن لجميع الطلاب"; return; }
+
+                    const progressBox = document.getElementById('uploadProgressBox');
+                    const progressBar = document.getElementById('uploadProgressBar');
+                    progressBox.classList.remove('hidden');
+
+                    const storageRef = ref(storage, `uploads/${Date.now()}_${file.name}`);
+                    const uploadTask = uploadBytesResumable(storageRef, file);
+
+                    downloadUrl = await new Promise((resolve, reject) => {
+                        uploadTask.on('state_changed', 
+                            (snapshot) => {
+                                const p = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                progressBar.style.width = p + "%";
+                            },
+                            (error) => reject(error),
+                            async () => {
+                                const url = await getDownloadURL(uploadTask.snapshot.ref);
+                                resolve(url);
+                            }
+                        );
+                    });
+                    progressBox.classList.add('hidden');
+                } else {
+                    downloadUrl = document.getElementById('admLink').value.trim();
+                    if (!downloadUrl) { alertToast("اكتب الرابط."); submitBtn.disabled = false; submitBtn.textContent = "نشر الآن لجميع الطلاب"; return; }
+                }
+
+                await addDoc(collection(db, 'portal_items'), {
+                    grade,
+                    category,
+                    title,
+                    type,
+                    url: downloadUrl,
+                    createdAt: Date.now()
+                });
+
+                document.getElementById('admTitle').value = '';
+                document.getElementById('admLink').value = '';
+                document.getElementById('admFile').value = '';
+                alertToast("تم الرفع والحفظ السحابي بنجاح! سيظهر لجميع الطلاب الآن.");
+            } catch(err) {
+                console.error(err);
+                alertToast("حدث خطأ أثناء الرفع، تأكد من صلاحيات Firebase Storage و Firestore.");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "نشر الآن لجميع الطلاب";
+            }
+        };
+
+        function renderAdminList() {
+            const list = document.getElementById('admin-items-list');
+            if (!list) return;
+            if (portalContent.length === 0) {
+                list.innerHTML = `<span style="font-size:12px;color:var(--text-muted);">لا توجد محتويات حالياً.</span>`;
+                return;
+            }
+            list.innerHTML = portalContent.map(item => `
+                <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg-input);padding:6px 10px;border-radius:8px;font-size:12px;">
+                    <span><strong>${esc(item.grade)}:</strong> ${esc(item.title)}</span>
+                    <button onclick="deleteContent(${jsq(item.id)})" class="btn btn-danger" style="padding:2px 8px;font-size:11px;">حذف 🗑️</button>
+                </div>
+            `).join('');
+        }
+
+        window.deleteContent = async function(id) {
+            if (!confirm("هل أنت متأكد من حذف هذا المحتوى؟")) return;
+            try {
+                await deleteDoc(doc(db, 'portal_items', id));
+                alertToast("تم الحذف بنجاح.");
+            } catch(e) {
+                alertToast("تعذر الحذف.");
+            }
+        };
+
+        // Course Codes Management (كورسات التأسيس)
+        const cleanCode = v => String(v || '').trim().toUpperCase().replace(/[^A-Z0-9-]/g, '');
+
+        window.openCourseGate = function() {
+            const code = prompt("أدخل كود كورس التأسيس الخاص بك:");
+            if (!code) return;
+            enterCourseCode(cleanCode(code));
+        };
+
+        async function enterCourseCode(code) {
+            try {
+                const snap = await getDoc(doc(db, 'course_codes', code));
+                if (!snap.exists()) {
+                    alertToast("الكود غير صحيح أو منتهي الصلاحية.");
+                    return;
+                }
+                const info = snap.data();
+                const itemsSnap = await getDocs(collection(db, 'course_codes', code, 'items'));
+                let itemsHtml = "";
+                itemsSnap.forEach(d => {
+                    const it = d.data();
+                    itemsHtml += `
+                        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--bg-input);border-radius:10px;margin-bottom:8px;">
+                            <span>${esc(it.title)}</span>
+                            <a href="${esc(it.url)}" target="_blank" class="btn btn-gold" style="font-size:11px;padding:4px 10px;">فتح 📥</a>
+                        </div>`;
+                });
+
+                const div = document.createElement('div');
+                div.className = "modal-overlay";
+                div.innerHTML = `
+                    <div class="modal">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:10px;">
+                            <h3 style="font-size:16px;color:var(--gold);">${esc(info.title)}</h3>
+                            <button onclick="this.closest('.modal-overlay').remove()" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;">&times;</button>
+                        </div>
+                        <div style="max-height:300px;overflow-y:auto;">
+                            ${itemsHtml || '<p style="color:var(--text-muted);font-size:12px;text-align:center;">لا يوجد محتوى في هذا الكورس بعد.</p>'}
+                        </div>
+                    </div>`;
+                document.body.appendChild(div);
+            } catch(e) {
+                alertToast("حدث خطأ أثناء تحميل الكورس.");
+            }
+        }
+
+        window.createCourse = async function() {
+            const title = document.getElementById('crsTitle').value.trim();
+            if (!title) { alertToast("اكتب اسم الكورس."); return; }
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = "";
+            for (let i = 0; i < 7; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+
+            try {
+                await setDoc(doc(db, 'course_codes', code), { title, createdAt: Date.now() });
+                document.getElementById('crsTitle').value = '';
+                alertToast("تم إنشاء الكورس بنجاح! الكود هو: " + code);
+                startCourseAdmin();
+            } catch(e) {
+                alertToast("تعذر إنشاء الكورس.");
+            }
+        };
+
+        window.addCourseItem = async function() {
+            const code = document.getElementById('crsSelect').value;
+            const title = document.getElementById('crsItemTitle').value.trim();
+            const link = document.getElementById('crsItemLink').value.trim();
+            const file = document.getElementById('crsItemFile').files[0];
+
+            if (!code || !title || (!file && !link)) {
+                alertToast("يرجى اختيار الكورس، وكتابة العنوان ورابط أو ملف.");
+                return;
+            }
+
+            try {
+                let finalUrl = link;
+                if (file) {
+                    const storageRef = ref(storage, `courses/${Date.now()}_${file.name}`);
+                    const snap = await uploadBytesResumable(storageRef, file);
+                    finalUrl = await getDownloadURL(snap.ref);
+                }
+
+                await addDoc(collection(db, 'course_codes', code, 'items'), {
+                    title,
+                    url: finalUrl,
+                    createdAt: Date.now()
+                });
+                document.getElementById('crsItemTitle').value = '';
+                document.getElementById('crsItemLink').value = '';
+                document.getElementById('crsItemFile').value = '';
+                alertToast("تمت الإضافة للكورس بنجاح!");
+            } catch(e) {
+                alertToast("حدث خطأ أثناء إضافة المحتوى.");
+            }
+        };
+
+        async function startCourseAdmin() {
+            const sel = document.getElementById('crsSelect');
+            const list = document.getElementById('crs-list');
+            try {
+                const snap = await getDocs(collection(db, 'course_codes'));
+                let selHtml = "";
+                let listHtml = "";
+                snap.forEach(d => {
+                    const c = d.data();
+                    selHtml += `<option value="${d.id}">${esc(c.title)} (${d.id})</option>`;
+                    listHtml += `
+                        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg-input);padding:6px 10px;border-radius:8px;font-size:12px;">
+                            <span>${esc(c.title)} | كود: <strong style="color:var(--gold);">${d.id}</strong></span>
+                            <button onclick="navigator.clipboard.writeText('${d.id}');alertToast('تم نسخ الكود');" class="btn btn-secondary" style="font-size:10px;padding:2px 6px;">نسخ الكود</button>
+                        </div>`;
+                });
+                sel.innerHTML = selHtml || '<option value="">لا توجد كورسات</option>';
+                list.innerHTML = listHtml || '<span style="font-size:11px;color:var(--text-muted);">لم يتم إنشاء كورسات بعد.</span>';
+            } catch(e) {}
+        }
+
+        window.closeModal = function(id) {
+            document.getElementById(id).classList.add('hidden');
+        };
+
+        function alertToast(msg) {
+            const d = document.createElement('div');
+            d.className = 'toast';
+            d.textContent = msg;
+            document.body.appendChild(d);
+            setTimeout(() => d.remove(), 3500);
+        }
+
+        window.onload = function() {
+            renderGrades();
+            updateStudentHeader();
+        };
+    </script>
+</body>
+</html>
